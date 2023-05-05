@@ -14,8 +14,9 @@ General environmental variables
 
 
 
-# Commands
-Use the following command in terminal to run application: docker-compose up --force-recreate --build
+# To start application
+1. Create .env in root directory and fill values from .env.example file
+2. Use the following command in terminal to run application: docker-compose up --force-recreate --build
 
 # Run tests
 All tests and flake8 are running in separate docker containers and will be automatically applied
@@ -30,7 +31,7 @@ REQUEST BODY
 | 'username'                 | String                                       |Username              |
 | 'password'                 | String                                       |Password              |
 3. GET /employee/vote_for/?id=<menu_id> - to vote for menu with ID <menu_id>
-4. POST /auth/ - to pass authentication and get refresh and access tokens
+4. POST /auth/ - to pass authentication and get refresh and access tokens\
 REQUEST BODY
 
 | FIELD                      | Type                                         |Description           |
@@ -38,14 +39,14 @@ REQUEST BODY
 | 'username'                 | String                                       |Username              |
 | 'password'                 | String                                       |Password              |
 5. GET /restaurant/ - to get list of all restaurants
-6. POST /restaurant/ - to create new restaurant object
+6. POST /restaurant/ - to create new restaurant object\
 REQUEST BODY
 
 | FIELD                      | Type                                         |Description           |
 |----------------------------|----------------------------------------------|----------------------|
 | 'title'                    | String                                       |Title                 |
 7. GET /restaurant/menu/ - to get list of all menus
-8. POST /restaurant/menu/ - to create new menu
+8. POST /restaurant/menu/ - to create new menu\
 REQUEST BODY
 
 | FIELD                      | Type                                         |Description                       |
