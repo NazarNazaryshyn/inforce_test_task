@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    networks:
+      - django_network
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DATABASE_PORT=${DATABASE_PORT}
+    command:  bash -c "python manage.py makemigrations && 
+                       python manage.py migrate && 
+                       python manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
+    networks:
+      - django_network
+  flake8:
+    build: .
+    volumes:
+      - .:/app
+    command: bash -c "flake8 --exclude=.venv --max-line-length=120 --ignore=W293"
+  test_app_container:
+    build: .
+    volumes:
+      - .:/app
+    networks:
+      - django_network
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DATABASE_PORT=${DATABASE_PORT}
+    command:  bash -c "python manage.py test employee &&
+                       python manage.py test authentication &&
+                       python manage.py test restaurant"
+    depends_on:
+      - postgres
+networks:
+  django_network:
+volumes:
+  pgdata:
