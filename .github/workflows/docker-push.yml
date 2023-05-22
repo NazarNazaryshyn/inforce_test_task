@@ -2,7 +2,7 @@ name: Basic Docker Deploy
 on: 
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build-image:
