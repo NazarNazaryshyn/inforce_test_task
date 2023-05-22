@@ -9,6 +9,8 @@ jobs:
     name: Build Image
     runs-on: ubuntu-latest
     steps:
+      - name: Display folders
+        run: ls
       - name: Build and Push Docker
         uses: mr-smithers-excellent/docker-build-push@v4
         with:
